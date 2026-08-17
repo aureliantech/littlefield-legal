@@ -762,15 +762,22 @@ body.vp-mobile .site-header .logo-text {
   flex-direction: column;
   background:
     repeating-linear-gradient(
-      124deg,
+      60deg,
       rgba(255, 255, 255, 0.03) 0px,
       rgba(255, 255, 255, 0.03) 1px,
       transparent 1px,
-      transparent 34px
+      transparent 9px
     ),
+    repeating-linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.03) 0px,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 9px
+    ),
+    radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.25) 100%),
     linear-gradient(160deg, var(--green-700) 0%, var(--green-900) 60%, #0c120b 100%);
-  color: var(--on-dark);
-  transform: translateY(-100%);
+  background-size: 9px 9px, 9px 9px, auto, auto;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -1654,12 +1661,20 @@ body.vp-desktop .diff-photo {
   background:
     radial-gradient(ellipse 70% 60% at 50% 0%, rgba(166, 90, 58, 0.14), transparent 60%),
     repeating-linear-gradient(
-      124deg,
+      60deg,
       rgba(255, 255, 255, 0.03) 0px,
       rgba(255, 255, 255, 0.03) 1px,
       transparent 1px,
-      transparent 34px
+      transparent 9px
     ),
+    repeating-linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.03) 0px,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 9px
+    ),
+    radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.25) 100%),
     linear-gradient(
       105deg,
       transparent 0%,
@@ -1668,6 +1683,7 @@ body.vp-desktop .diff-photo {
       rgba(17, 24, 15, 0.5) 100%
     ),
     linear-gradient(160deg, var(--green-800) 0%, var(--green-900) 55%, #0c120b 100%);
+  background-size: auto, 9px 9px, 9px 9px, auto, auto, auto;
   color: var(--on-dark);
   text-align: center;
   border-top: 2px solid var(--rust-500);
@@ -2537,15 +2553,24 @@ body.vp-desktop .pa-modal-media {
   position: relative;
   background:
     repeating-linear-gradient(
-      124deg,
+      60deg,
       rgba(255, 255, 255, 0.03) 0px,
       rgba(255, 255, 255, 0.03) 1px,
       transparent 1px,
-      transparent 34px
+      transparent 9px
     ),
+    repeating-linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.03) 0px,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 9px
+    ),
+    radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.25) 100%),
     radial-gradient(ellipse 65% 55% at 12% 0%, rgba(166, 90, 58, 0.14), transparent 60%),
     radial-gradient(ellipse 55% 45% at 100% 100%, rgba(63, 92, 56, 0.3), transparent 62%),
     linear-gradient(160deg, var(--green-700) 0%, var(--green-900) 60%, #0c120b 100%);
+  background-size: 9px 9px, 9px 9px, auto, auto, auto, auto;
   color: var(--on-dark);
 }
 
