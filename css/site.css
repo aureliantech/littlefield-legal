@@ -85,6 +85,7 @@
   --cta-bg: var(--green-500);
   --cta-bg-hover: var(--green-600);
   --cta-text: var(--paper);
+  --cta-corner: var(--rust-300);
   --cta-body-bg: var(--rust-500);
   --cta-body-hover: var(--rust-700);
   --cta-body-text: var(--paper);
@@ -143,6 +144,33 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Blur-to-focus — reserved for headline-tier text (eyebrow + H2/H1 pairs)
+   specifically, not body copy or whole content blocks. Reuses the same
+   .reveal/.is-in scroll-trigger already wired up in reveal.js; the extra
+   specificity from the compound selector is what lets this override the
+   base .reveal translateY behavior for just these elements. */
+.reveal.reveal--blur {
+  opacity: 0;
+  filter: blur(14px);
+  transform: scale(1.035);
+  transition: opacity 0.9s ease-out, filter 0.9s ease-out, transform 0.9s ease-out;
+}
+
+.reveal.reveal--blur.is-in {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal.reveal--blur {
+    opacity: 1;
+    filter: none;
     transform: none;
     transition: none;
   }
@@ -479,45 +507,193 @@ body.vp-mobile .frame {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 16px;
-  background: var(--cta-bg);
-  color: var(--cta-text) !important;
+  padding: 11px 18px;
   text-decoration: none;
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 700;
-  border-radius: 4px;
+  border-radius: 3px;
   white-space: nowrap;
   text-transform: none;
   letter-spacing: 0;
-  transition:
-    background 0.15s ease,
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
-}
-
-.cta-btn:hover {
-  background: var(--cta-bg-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(11, 11, 11, 0.22);
-}
-
-.cta-btn:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: inset 0 2px 6px rgba(11, 11, 11, 0.28);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cta-btn:hover,
-  .cta-btn:active {
-    transform: none;
-    box-shadow: none;
-  }
+  position: relative;
 }
 
 .cta-btn.lg {
-  padding: 14px 22px;
+  padding: 15px 24px;
   font-size: 15px;
+}
+
+/* Shared icon glyph, reused by all three variants */
+.cta-btn-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23000000%22 stroke-width=%222.5%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z%22/%3E%3C/svg%3E');
+  mask-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23000000%22 stroke-width=%222.5%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z%22/%3E%3C/svg%3E');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  transition: background-color 0.22s ease;
+}
+
+/* ============================================================
+   02 — GHOST, FILLED ON HOVER
+   Used on: attorney bio + reviews inline CTAs (secondary, in-content asks)
+   ============================================================ */
+.cta-btn--ghost {
+  background: transparent;
+  color: var(--cta-bg);
+  border: 1.5px solid var(--cta-bg);
+  overflow: hidden;
+  transition: color 0.22s ease, border-color 0.22s ease;
+}
+
+.cta-btn--ghost .cta-btn-fill {
+  position: absolute;
+  inset: -1.5px;
+  background: var(--cta-bg);
+  transform: translateY(101%);
+  transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1), background-color 0.22s ease;
+  z-index: 0;
+}
+
+.cta-btn--ghost .cta-btn-content {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.cta-btn--ghost .cta-btn-icon {
+  width: 13px;
+  height: 13px;
+}
+
+.cta-btn--ghost:hover {
+  color: var(--paper);
+  border-color: var(--cta-bg-hover);
+}
+
+.cta-btn--ghost:hover .cta-btn-fill {
+  transform: translateY(0);
+  background-color: var(--cta-bg-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-btn--ghost .cta-btn-fill {
+    transition: none !important;
+  }
+}
+
+/* ============================================================
+   06 — ICON ARRIVES
+   Used on: hero CTA (the primary, first-seen ask)
+   ============================================================ */
+.cta-btn--icon {
+  background-color: var(--cta-bg);
+  color: var(--paper);
+  border: none;
+  transition: background-color 0.15s ease;
+}
+
+.cta-btn--icon .cta-btn-icon {
+  width: 0;
+  height: 13px;
+  opacity: 0;
+  margin-right: 0;
+  transition: width 0.28s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.2s ease, margin-right 0.28s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.cta-btn--icon:hover {
+  background-color: var(--cta-bg-hover);
+}
+
+.cta-btn--icon:hover .cta-btn-icon {
+  width: 13px;
+  opacity: 1;
+  margin-right: 9px;
+}
+
+.cta-btn--icon.lg .cta-btn-icon {
+  height: 15px;
+}
+
+.cta-btn--icon.lg:hover .cta-btn-icon {
+  width: 15px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-btn--icon .cta-btn-icon {
+    transition: none !important;
+  }
+}
+
+/* ============================================================
+   09 — FOLDED CORNER
+   Used on: header CTA + mobile sticky CTA (persistent, always-on asks)
+   ============================================================ */
+.cta-btn--corner {
+  background-color: var(--cta-bg);
+  color: var(--paper);
+  border: none;
+  overflow: hidden;
+  transition: background-color 0.15s ease;
+}
+
+.cta-btn--corner .cta-btn-content {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.cta-btn--corner .cta-btn-icon {
+  width: 13px;
+  height: 13px;
+}
+
+.cta-btn--corner .cta-btn-corner-fold {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 0 0;
+  border-color: transparent var(--cta-corner) transparent transparent;
+  transition: border-width 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: 2;
+}
+
+.cta-btn--corner:hover {
+  background-color: var(--cta-bg-hover);
+}
+
+.cta-btn--corner:hover .cta-btn-corner-fold {
+  border-width: 0 13px 13px 0;
+}
+
+.cta-btn--corner.lg:hover .cta-btn-corner-fold {
+  border-width: 0 16px 16px 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-btn--corner .cta-btn-corner-fold {
+    transition: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .final-phone:hover,
+  .mega-menu__phone:hover {
+    transform: none;
+  }
 }
 
 /* Body CTAs — red-rock (header/sticky stay green via default .cta-btn) */
@@ -525,15 +701,9 @@ body.vp-mobile .frame {
 .sec-white .cta-btn,
 .sec-final .cta-btn,
 .sec-mist .cta-btn {
-  background: var(--cta-body-bg);
-  color: var(--cta-body-text) !important;
-}
-
-.sec-hero .cta-btn:hover,
-.sec-white .cta-btn:hover,
-.sec-final .cta-btn:hover,
-.sec-mist .cta-btn:hover {
-  background: var(--cta-body-hover);
+  --cta-bg: var(--cta-body-bg);
+  --cta-bg-hover: var(--cta-body-hover);
+  --cta-corner: var(--green-400);
 }
 
 body.vp-mobile .site-header {
@@ -824,16 +994,23 @@ body.vp-mobile .site-header .logo-text {
   position: relative;
   display: block;
   padding: 18px 16px;
-  border-radius: 6px;
-  background: var(--rust-500);
+  border-radius: 4px;
+  background-color: var(--rust-500);
   color: var(--paper);
   text-decoration: none;
   text-align: center;
-  transition: background 0.25s ease;
+  box-shadow:
+    0 2px 4px rgba(11, 11, 11, 0.14),
+    0 8px 22px rgba(76, 38, 20, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.15s ease;
 }
 
 .mega-menu__phone:hover {
-  background: var(--rust-700);
+  background-color: var(--rust-700);
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 8px rgba(11, 11, 11, 0.16),
+    0 14px 30px rgba(76, 38, 20, 0.34);
 }
 
 .mega-menu__phone-ring {
@@ -1164,14 +1341,50 @@ body.vp-mobile .vantage-node:not(:last-child)::after {
   }
 }
 
-.hero-kicker,
 .vantage-path,
-.hero-h1,
 .sec-hero .copy-lead,
-.sec-hero .cta-btn,
 .hero-reassurance,
 .hero-trust {
   animation: hero-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* The headline (eyebrow + H1) gets the blur-to-focus treatment instead of
+   the shared rise — this is the one true "headline arriving" moment on the
+   page, so it earns the more cinematic entrance. Supporting hero elements
+   above keep the quieter rise. */
+.hero-kicker,
+.hero-h1 {
+  animation: hero-blur-focus 0.9s ease-out both;
+}
+
+@keyframes hero-blur-focus {
+  from {
+    opacity: 0;
+    filter: blur(14px);
+    transform: scale(1.035);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+/* The CTA button gets its own opacity-only entrance — reusing hero-rise's
+   translateY would pin "transform: none" on the button via fill-mode even
+   after the animation finishes, silently blocking the button's own hover
+   lift transform (a real, easy-to-miss CSS animation/transition conflict). */
+.sec-hero .cta-btn {
+  animation: hero-fade-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .hero-kicker { animation-delay: 0.05s; }
@@ -1308,6 +1521,18 @@ body.vp-mobile .hero-scroll-cue {
   object-fit: cover;
   object-position: 50% 24%;
   filter: grayscale(1) contrast(1.1) brightness(0.88);
+  transform: scale(1);
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.diff-photo:hover .diff-photo-img {
+  transform: scale(1.07);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diff-photo-img {
+    transition: none;
+  }
 }
 
 .diff-photo-duotone {
@@ -1327,19 +1552,42 @@ body.vp-mobile .hero-scroll-cue {
 }
 
 /* —— Points: a clean rule-list beside the photo, not cards floating on it —— */
-.diff-points {
-  list-style: none;
+.diff-stack {
+  position: relative;
+  height: 460px;
   margin: 28px 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
 }
 
-.diff-point {
+.diff-stack-sticky {
+  position: sticky;
+  top: 90px;
+  height: 240px;
+}
+
+.diff-card {
+  position: absolute;
+  inset: 0;
   min-width: 0;
   padding-top: 16px;
   border-top: 2px solid var(--rust-500);
+  background: var(--paper);
+  opacity: 0;
+  transform: translateY(18px) scale(0.97);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.diff-card.is-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.diff-card.is-behind {
+  opacity: 0.4;
+  transform: translateY(-16px) scale(0.96);
+  z-index: 1;
 }
 
 .diff-point-kicker {
@@ -1353,14 +1601,20 @@ body.vp-mobile .hero-scroll-cue {
   margin-bottom: 10px;
 }
 
-.diff-point .copy-card-h {
+.diff-card .copy-card-h {
   font-size: 19px;
   margin-bottom: 8px;
 }
 
-.diff-point .copy-body {
+.diff-card .copy-body {
   margin-bottom: 0;
   color: var(--neutral-700);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diff-stack { height: auto; }
+  .diff-stack-sticky { position: static; height: auto; display: flex; flex-direction: column; gap: 24px; }
+  .diff-card { position: static; opacity: 1; transform: none; }
 }
 
 .sec-diff .soft-link {
@@ -1459,19 +1713,24 @@ body.vp-desktop .diff-photo {
   display: block;
   margin: 30px 0 0;
   padding: 22px 24px;
-  border-radius: 6px;
-  background: var(--rust-500);
+  border-radius: 4px;
+  background-color: var(--rust-500);
   color: var(--paper);
   text-decoration: none;
   text-align: center;
   overflow: visible;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  box-shadow:
+    0 2px 4px rgba(11, 11, 11, 0.14),
+    0 10px 26px rgba(76, 38, 20, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.15s ease;
 }
 
 .final-phone:hover {
-  background: var(--rust-700);
+  background-color: var(--rust-700);
   transform: translateY(-2px);
-  box-shadow: 0 18px 40px rgba(166, 90, 58, 0.35);
+  box-shadow:
+    0 4px 8px rgba(11, 11, 11, 0.16),
+    0 16px 34px rgba(76, 38, 20, 0.36);
 }
 
 .final-phone-ring {
@@ -1958,6 +2217,7 @@ body.vp-mobile .grid-3 {
   cursor: pointer;
   background: var(--green-900);
   text-align: left;
+  text-decoration: none;
   font: inherit;
   color: var(--paper);
 }
@@ -1975,12 +2235,13 @@ body.vp-mobile .grid-3 {
   height: 100%;
   object-fit: cover;
   filter: grayscale(1) contrast(1.1) brightness(0.75);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
 }
 
 .pa-card:hover .pa-card-media img,
 .pa-card:focus-visible .pa-card-media img {
   transform: scale(1.06);
+  filter: grayscale(0.2) contrast(1.04) brightness(0.92);
 }
 
 .pa-card-duotone {
@@ -1989,6 +2250,12 @@ body.vp-mobile .grid-3 {
   background: linear-gradient(160deg, var(--green-800) 0%, var(--green-900) 60%, #0c120b 100%);
   mix-blend-mode: color;
   opacity: 0.9;
+  transition: opacity 0.6s ease;
+}
+
+.pa-card:hover .pa-card-duotone,
+.pa-card:focus-visible .pa-card-duotone {
+  opacity: 0.35;
 }
 
 .pa-card-duotone--warm {
@@ -2177,6 +2444,7 @@ body.vp-desktop .pa-card:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .pa-card-media img,
+  .pa-card-duotone,
   .pa-modal-backdrop,
   .pa-modal-panel {
     transition: none;
@@ -2204,6 +2472,65 @@ body.vp-desktop .pa-modal.is-open .pa-modal-panel {
 
 body.vp-desktop .pa-modal-media {
   aspect-ratio: 16 / 9;
+}
+
+/* —— Section Peel Handoff: a dedicated transition zone between the
+   method and attorney sections. Deliberately NOT pinning either of
+   those two fully-built sections directly — method has its own
+   scroll-linked beat-progress system, and attorney has its own complex
+   layout; both stay completely untouched. This is a small, separate
+   moment in between, reusing each section's own real heading. —— */
+.sec-peel {
+  position: relative;
+  padding: 0;
+}
+
+.peel-stack {
+  position: relative;
+  height: calc(100vh + 260px);
+}
+
+.peel-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.peel-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.peel-panel-a {
+  z-index: 2;
+  background:
+    radial-gradient(ellipse 65% 55% at 12% 0%, rgba(166, 90, 58, 0.14), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 100% 100%, rgba(63, 92, 56, 0.3), transparent 62%),
+    linear-gradient(160deg, var(--green-700) 0%, var(--green-900) 60%, #0c120b 100%);
+}
+
+.peel-panel-a .eyebrow,
+.peel-panel-a .copy-h2 {
+  color: var(--paper);
+}
+
+.peel-panel-b {
+  z-index: 1;
+  background: var(--paper);
+  opacity: 0;
+  transform: scale(0.94);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .peel-stack { height: auto; }
+  .peel-sticky { position: static; height: auto; }
+  .peel-panel { position: relative; padding: 64px 0; }
+  .peel-panel-b { display: none; }
 }
 
 .sec-method {
@@ -2339,6 +2666,8 @@ body.vp-desktop .method-beat {
 }
 
 .sec-attorney {
+  position: relative;
+  overflow: hidden;
   background: var(--paper);
   padding: 64px 0 72px;
 }
@@ -2347,18 +2676,55 @@ body.vp-mobile .sec-attorney {
   padding: 48px 0 56px;
 }
 
+/* —— Guilloché, take four: the dense engraved pattern (proven to read
+   as "engraved," not decorative trim) used as a quiet full background
+   motif — filling the section's negative space with texture instead of
+   sitting on the content as a discrete object. —— */
+.attorney-motif {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  right: -8%;
+  width: 560px;
+  height: 560px;
+  transform: translateY(-50%);
+  background-image: url("../img/guilloche-motif.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+}
+
+body.vp-mobile .attorney-motif {
+  width: 340px;
+  height: 340px;
+  top: auto;
+  bottom: -4%;
+  right: -14%;
+  transform: none;
+  opacity: 0.06;
+}
+
+body.vp-desktop .attorney-motif {
+  width: 640px;
+  height: 640px;
+  right: -6%;
+}
+
 .attorney-split {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-/* —— A modest, contained headshot — not a dominant visual statement —— */
 .attorney-portrait {
   position: relative;
   margin: 0;
   width: 100%;
-  max-width: 260px;
+  max-width: 340px;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   border-radius: 3px;
@@ -2383,39 +2749,103 @@ body.vp-mobile .sec-attorney {
   opacity: 0.82;
 }
 
+.attorney-portrait-frame {
+  position: absolute;
+  inset: 12px;
+  width: calc(100% - 24px);
+  height: calc(100% - 24px);
+  pointer-events: none;
+}
+
+.attorney-portrait-frame-rect {
+  fill: none;
+  stroke: var(--rust-300);
+  stroke-width: 1.5;
+  stroke-dasharray: 1784;
+  stroke-dashoffset: 1784;
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.attorney-portrait:hover .attorney-portrait-frame-rect {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .attorney-portrait-frame-rect {
+    transition: none;
+  }
+}
+
 .attorney-copy {
   min-width: 0;
 }
 
 .attorney-copy .copy-h2 {
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
-.attorney-credentials {
+/* —— Credentials as a real structured rail, not one string of text —— */
+.attorney-roles {
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attorney-roles li {
+  position: relative;
+  padding-left: 20px;
   font-family: var(--font-body);
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--rust-500);
-  margin: 0 0 20px;
+}
+
+.attorney-roles li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 10px;
+  height: 1.5px;
+  background: var(--rust-500);
+}
+
+/* —— A pull-quote excerpted from the bio itself: a real visual anchor
+   instead of another line of plain body text —— */
+.attorney-pullquote {
+  margin: 0 0 28px;
+  padding-left: 22px;
+  border-left: 3px solid var(--rust-500);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(20px, 2.7vw, 26px);
+  line-height: 1.42;
+  color: var(--green-800);
+  max-width: 32ch;
 }
 
 .attorney-copy .copy-body {
   color: var(--neutral-700);
   margin-bottom: 14px;
-  max-width: 62ch;
+  max-width: 58ch;
 }
 
 .attorney-copy .soft-link {
   margin-top: 6px;
 }
 
-/* —— Desktop: classic side-by-side split —— */
+/* —— Desktop: classic side-by-side split, now with a photo and a
+   composition that actually earns the full viewport height —— */
 body.vp-desktop .attorney-split {
   flex-direction: row;
-  align-items: flex-start;
-  gap: 56px;
+  align-items: center;
+  gap: 72px;
 }
 
 body.vp-desktop .sec-attorney {
@@ -2431,13 +2861,14 @@ body.vp-desktop .sec-attorney > .container {
 }
 
 body.vp-desktop .attorney-portrait {
-  flex: 0 0 280px;
+  flex: 0 0 420px;
   max-width: none;
 }
 
 body.vp-desktop .attorney-copy {
   flex: 1 1 0;
-  padding-top: 6px;
+  padding-top: 0;
+  max-width: 560px;
 }
 
 .split {
@@ -2464,6 +2895,21 @@ body.vp-mobile .split {
 
 .soft-link:hover {
   color: var(--rust-500);
+}
+
+.link-arrow {
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.soft-link:hover .link-arrow {
+  transform: translateX(5px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-arrow {
+    transition: none;
+  }
 }
 
 .soft-link-center {
@@ -2827,6 +3273,15 @@ body.vp-mobile .footer-grid {
   color: var(--rust-300);
 }
 
+.footer-top-link .link-arrow {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.footer-top-link:hover .link-arrow,
+.footer-top-link:focus-visible .link-arrow {
+  transform: translateY(-4px);
+}
+
 .footer-compliance {
   margin: 14px 0 0;
   padding-top: 14px;
@@ -3182,4 +3637,426 @@ body.is-loading .hero-trust {
   .site-loader__dot {
     transition: none;
   }
+}
+
+/* ============================================================
+   Page transition — vertical blinds. Plays as the exit animation
+   when leaving this page for another on the site, and as the
+   entrance animation on arrival (skipped on a visitor's very first
+   page of the session, since the branded loader already owns that
+   moment — see js/page-transition.js for the session check).
+   ============================================================ */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  display: flex;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-transition__blind {
+  flex: 1;
+  background: var(--rust-500);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.page-transition__blind:nth-child(1) { animation-delay: 0s; }
+.page-transition__blind:nth-child(2) { animation-delay: 0.035s; }
+.page-transition__blind:nth-child(3) { animation-delay: 0.07s; }
+.page-transition__blind:nth-child(4) { animation-delay: 0.105s; }
+.page-transition__blind:nth-child(5) { animation-delay: 0.14s; }
+.page-transition__blind:nth-child(6) { animation-delay: 0.175s; }
+.page-transition__blind:nth-child(7) { animation-delay: 0.21s; }
+.page-transition__blind:nth-child(8) { animation-delay: 0.245s; }
+
+/* Arriving on this page mid-transition: start fully closed, no flash. */
+.page-transition.is-closed-instant {
+  visibility: visible;
+}
+.page-transition.is-closed-instant .page-transition__blind {
+  transform: scaleY(1);
+}
+
+/* Leaving this page: close over the content, then navigate. */
+.page-transition.is-animating-close {
+  visibility: visible;
+  pointer-events: all;
+}
+.page-transition.is-animating-close .page-transition__blind {
+  animation: pt-close 0.55s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+/* Arriving on this page: open to reveal it. */
+.page-transition.is-animating-open .page-transition__blind {
+  animation: pt-open 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes pt-close {
+  to { transform: scaleY(1); }
+}
+@keyframes pt-open {
+  from { transform: scaleY(1); }
+  to { transform: scaleY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   Shared components for interior pages (practice-area charge
+   pages, About, Contact, FAQ, Reviews, What to Expect).
+   ============================================================ */
+
+/* —— Info card: for "stakes"-style 2-up content, reusing the
+   diff-card visual language (rust top rule + kicker) for
+   consistency with the homepage's Why This Firm section. —— */
+.info-card {
+  min-width: 0;
+  padding-top: 16px;
+  border-top: 2px solid var(--rust-500);
+}
+
+.info-card-kicker {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rust-500);
+  margin-bottom: 10px;
+}
+
+.info-card .copy-card-h {
+  font-size: 19px;
+  margin-bottom: 8px;
+}
+
+.info-card .copy-body {
+  margin-bottom: 0;
+}
+
+/* —— Mid-page CTA band: a lighter, shorter call-to-action than
+   the closing final-CTA section, used partway through longer
+   pages to re-offer the call without a hard stop. —— */
+.sec-mid-cta {
+  background: var(--rust-100);
+  text-align: center;
+}
+
+.sec-mid-cta .container {
+  max-width: 640px;
+}
+
+.sec-mid-cta .copy-h2 {
+  margin-bottom: 10px;
+}
+
+.sec-mid-cta .copy-lead {
+  margin: 0 auto 26px;
+  max-width: 46ch;
+}
+
+/* —— FAQ / objections accordion. Independent multi-open (opening
+   one item never collapses another) so a visitor comparing two
+   answers doesn't lose their place. —— */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--rust-300);
+}
+
+.faq-item:first-child {
+  border-top: 1px solid var(--rust-300);
+}
+
+.faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 4px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--green-800);
+}
+
+body.vp-mobile .faq-q {
+  font-size: 16px;
+  padding: 18px 2px;
+}
+
+.faq-q-mark {
+  flex-shrink: 0;
+  position: relative;
+  width: 18px;
+  height: 18px;
+}
+
+.faq-q-mark::before,
+.faq-q-mark::after {
+  content: "";
+  position: absolute;
+  background: var(--rust-500);
+  transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.faq-q-mark::before {
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.faq-q-mark::after {
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.faq-item[aria-expanded="true"] .faq-q-mark::after {
+  transform: translateX(-50%) rotate(90deg);
+  opacity: 0;
+}
+
+.faq-a {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.faq-a-inner {
+  padding: 0 4px 24px;
+  max-width: 68ch;
+}
+
+.faq-a-inner .copy-body {
+  margin: 0;
+  color: var(--neutral-700);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-q-mark::before,
+  .faq-q-mark::after,
+  .faq-a {
+    transition: none;
+  }
+}
+
+/* —— Channel cards: Contact page's phone/video/etc. options —— */
+.channel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rust-300);
+  border: 1px solid var(--rust-300);
+}
+
+body.vp-mobile .channel-grid {
+  grid-template-columns: 1fr;
+}
+
+.channel-card {
+  background: var(--paper);
+  padding: 32px 26px;
+}
+
+.channel-card-kicker {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rust-500);
+  margin-bottom: 12px;
+}
+
+.channel-card h3 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  color: var(--green-800);
+  margin: 0 0 10px;
+}
+
+.channel-card .copy-body {
+  margin-bottom: 16px;
+}
+
+/* —— Credibility rail: About page's numbered career markers,
+   reusing the vantage-path visual language from the hero. —— */
+.credibility-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.credibility-item {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 20px;
+  padding: 28px 0;
+  border-top: 1px solid var(--rust-300);
+}
+
+.credibility-item:last-child {
+  border-bottom: 1px solid var(--rust-300);
+}
+
+.credibility-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--green-300);
+}
+
+.credibility-item h3 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  color: var(--green-800);
+  margin: 0 0 8px;
+}
+
+body.vp-mobile .credibility-item {
+  grid-template-columns: 40px 1fr;
+  gap: 14px;
+}
+
+body.vp-mobile .credibility-num {
+  font-size: 22px;
+}
+
+/* —— Simple review quote card, for the Reviews page's grid —— */
+.quote-card {
+  background: var(--paper);
+  border: 1px solid var(--rust-300);
+  border-radius: 3px;
+  padding: 28px 26px;
+}
+
+.quote-card-mark {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 34px;
+  color: var(--rust-300);
+  line-height: 1;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.quote-card p.copy-body {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--green-800);
+}
+
+.quote-card-name {
+  display: block;
+  margin-top: 16px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--green-700);
+}
+
+.quote-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+body.vp-mobile .quote-grid {
+  grid-template-columns: 1fr;
+}
+
+/* —— Interior-page hero: shorter than the homepage's full-bleed
+   hero (this isn't the first thing every visitor sees the way the
+   homepage hero is), same duotone photo language. —— */
+.sec-inner-hero {
+  position: relative;
+  min-height: 46vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  color: var(--on-dark);
+}
+
+body.vp-desktop .sec-inner-hero {
+  min-height: 52vh;
+}
+
+.inner-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.inner-hero-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.1) brightness(0.7);
+}
+
+.inner-hero-duotone {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, var(--green-800) 0%, var(--green-900) 60%, #0c120b 100%);
+  mix-blend-mode: color;
+  opacity: 0.9;
+}
+
+.inner-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(11, 11, 11, 0.82) 0%, rgba(11, 11, 11, 0.15) 60%, transparent 100%);
+}
+
+.inner-hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 64px 0 48px;
+  width: 100%;
+}
+
+body.vp-desktop .inner-hero-content {
+  padding: 80px 0 64px;
+}
+
+.inner-hero-content .eyebrow {
+  color: var(--rust-300);
+}
+
+.inner-hero-content .copy-h1 {
+  color: var(--paper);
+  max-width: 18ch;
+}
+
+.inner-hero-content .copy-lead {
+  color: var(--on-dark-muted);
+  max-width: 58ch;
+  margin-top: 16px;
 }

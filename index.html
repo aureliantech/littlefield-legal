@@ -117,6 +117,24 @@
     </div>
     <span class="visually-hidden">Loading Littlefield Legal</span>
   </div>
+  <div id="page-transition" class="page-transition" aria-hidden="true">
+    <span class="page-transition__blind"></span>
+    <span class="page-transition__blind"></span>
+    <span class="page-transition__blind"></span>
+    <span class="page-transition__blind"></span>
+    <span class="page-transition__blind"></span>
+    <span class="page-transition__blind"></span>
+  </div>
+  <script>
+    (function () {
+      try {
+        if (sessionStorage.getItem("llTransitionOut") === "1") {
+          sessionStorage.removeItem("llTransitionOut");
+          document.getElementById("page-transition").classList.add("is-closed-instant");
+        }
+      } catch (e) {}
+    })();
+  </script>
   <div class="shell">
     <div class="frame">
       <header class="site-header">
@@ -124,7 +142,11 @@
           <span class="logo-line">Littlefield</span>
           <span class="logo-line">Legal</span>
         </div>
-        <a class="cta-btn" href="tel:+15555555555">Call (555) 555-5555</a>
+        <a class="cta-btn cta-btn--corner" href="tel:+15555555555">
+          <span class="cta-btn-corner-fold" aria-hidden="true"></span>
+          <span class="cta-btn-content"><span class="cta-btn-icon"></span>Call (555) 555-5555</span>
+        </a>
+                </a>
         <button
           type="button"
           class="menu-btn"
@@ -171,7 +193,10 @@
               </ol>
               <h1 class="copy-h1 hero-h1">Arrested or charged in Utah? Talk to Dallin <em>today</em>.</h1>
               <p class="copy-lead">Dallin has worked every side of a Utah courtroom — prosecutor, public defender, private attorney. That means your defense is built by someone who knows exactly how the other side thinks.</p>
-              <a class="cta-btn lg" href="tel:+15555555555">Call (555) 555-5555</a>
+              <a class="cta-btn cta-btn--icon lg" href="tel:+15555555555">
+                <span class="cta-btn-icon" aria-hidden="true"></span>Call (555) 555-5555
+              </a>
+                </a>
               <p class="hero-reassurance">No pressure. No obligation. Everything you share is confidential.</p>
               <div class="hero-trust">
                 <span>Free consultation</span>
@@ -214,22 +239,26 @@
           <div class="container">
             <div class="diff-layout">
               <div class="diff-copy reveal">
-                <div class="eyebrow">Why this firm</div>
-                <h2 class="copy-h2">Experience from both sides of the courtroom,<br class="br-desktop" /> working for you.</h2>
+                <div class="reveal reveal--blur">
+                  <div class="eyebrow">Why this firm</div>
+                  <h2 class="copy-h2">Experience from both sides of the courtroom,<br class="br-desktop" /> working for you.</h2>
+                </div>
                 <p class="copy-lead">He's prosecuted cases. He's defended the public. Now he defends you. That's a 360-degree view of how the state builds a case — and how to take it apart.</p>
-                <ul class="diff-points">
-                  <li class="diff-point">
-                    <span class="diff-point-kicker">Insight</span>
-                    <h3 class="copy-card-h">What that experience means for you</h3>
-                    <p class="copy-body">Dallin knows how prosecutors think and where your case has real room to fight — so you're never pressured into the first plea offered.</p>
-                  </li>
-                  <li class="diff-point">
-                    <span class="diff-point-kicker">Clarity</span>
-                    <h3 class="copy-card-h">And you will never wonder what is happening</h3>
-                    <p class="copy-body">Before every hearing, Dallin walks you through your options. He checks in regularly — even with no news — so you're never left guessing.</p>
-                  </li>
-                </ul>
-                <a class="soft-link" href="#how-it-works">How it works →</a>
+                <div class="diff-stack" id="diff-stack">
+                  <div class="diff-stack-sticky" id="diff-stack-sticky">
+                    <div class="diff-card">
+                      <span class="diff-point-kicker">Insight</span>
+                      <h3 class="copy-card-h">What that experience means for you</h3>
+                      <p class="copy-body">Dallin knows how prosecutors think and where your case has real room to fight — so you're never pressured into the first plea offered.</p>
+                    </div>
+                    <div class="diff-card">
+                      <span class="diff-point-kicker">Clarity</span>
+                      <h3 class="copy-card-h">And you will never wonder what is happening</h3>
+                      <p class="copy-body">Before every hearing, Dallin walks you through your options. He checks in regularly — even with no news — so you're never left guessing.</p>
+                    </div>
+                  </div>
+                </div>
+                <a class="soft-link" href="#how-it-works">How it works <span class="link-arrow">→</span></a>
               </div>
               <!--
                 AI-generated portrait, provided by the client as a placeholder
@@ -249,7 +278,7 @@
 
         <section class="sec sec-practice">
           <div class="container">
-            <div class="sec-head reveal">
+            <div class="sec-head reveal reveal--blur">
               <div class="eyebrow">Charges we handle</div>
               <h2 class="copy-h2">Find your charge. Then call for a strategic defense.</h2>
             </div>
@@ -268,7 +297,7 @@
                 data-pa-index="01"
                 data-pa-desc="Utah gives you just 10 days after a DUI arrest to request a hearing and protect your license—don't wait to call. Dallin evaluates the evidence and explains exactly what happens next."
                 data-pa-link="DUI defense →"
-                data-pa-href="#"
+                data-pa-href="practice-areas/dui.html"
                 data-pa-img="https://images.pexels.com/photos/10957638/pexels-photo-10957638.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1000"
               >
                 <span class="pa-card-media">
@@ -287,7 +316,7 @@
                 data-pa-index="02"
                 data-pa-desc="Possession charges where your record and probation matter. We work strategically to protect your future."
                 data-pa-link="Drug possession defense →"
-                data-pa-href="#"
+                data-pa-href="practice-areas/drug-possession.html"
                 data-pa-img="https://images.pexels.com/photos/29488399/pexels-photo-29488399.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1000"
               >
                 <span class="pa-card-media">
@@ -306,7 +335,7 @@
                 data-pa-index="03"
                 data-pa-desc="Recreational marijuana cases—the state still treats this as a criminal file, and it requires a serious defense."
                 data-pa-link="Marijuana possession defense →"
-                data-pa-href="#"
+                data-pa-href="practice-areas/marijuana-possession.html"
                 data-pa-img="https://images.pexels.com/photos/34475126/pexels-photo-34475126.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1000"
               >
                 <span class="pa-card-media">
@@ -325,7 +354,7 @@
                 data-pa-index="04"
                 data-pa-desc="Simple assault and related charges—Dallin thoroughly defends your case and explains your options clearly before you ever see a judge."
                 data-pa-link="Assault defense →"
-                data-pa-href="#"
+                data-pa-href="practice-areas/assault.html"
                 data-pa-img="https://images.pexels.com/photos/14212986/pexels-photo-14212986.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1000"
               >
                 <span class="pa-card-media">
@@ -344,7 +373,7 @@
                 data-pa-index="05"
                 data-pa-desc="Theft and related property charges where your employment and reputation are on the line."
                 data-pa-link="Theft defense →"
-                data-pa-href="#"
+                data-pa-href="practice-areas/theft.html"
                 data-pa-img="https://images.pexels.com/photos/27534533/pexels-photo-27534533.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1000"
               >
                 <span class="pa-card-media">
@@ -363,7 +392,7 @@
                 data-pa-index="06"
                 data-pa-desc="Light history. One charge that feels like it will define you. Dallin works to ensure it doesn't."
                 data-pa-link="First-time offense defense →"
-                data-pa-href="#"
+                data-pa-href="practice-areas/first-time-offense.html"
                 data-pa-img="https://images.pexels.com/photos/28539583/pexels-photo-28539583.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1000"
               >
                 <span class="pa-card-media">
@@ -376,7 +405,7 @@
                 <span class="pa-card-title">First-time offense</span>
               </button>
             </div>
-            <a class="soft-link" href="#">All practice areas →</a>
+            <a class="soft-link" href="practice-areas/overview.html">All practice areas <span class="link-arrow">→</span></a>
           </div>
 
           <div class="pa-modal" id="pa-modal" hidden>
@@ -401,7 +430,7 @@
 
         <section class="sec sec-method" id="how-it-works">
           <div class="container">
-            <div class="sec-head center reveal">
+            <div class="sec-head center reveal reveal--blur">
               <div class="eyebrow">What working together looks like</div>
               <h2 class="copy-h2">A dedicated defense, with no guessing in between.</h2>
               <p class="copy-lead">Building your case is Dallin's job. Making sure you understand it is too.</p>
@@ -429,11 +458,31 @@
                 </div>
               </li>
             </ol>
-            <a class="soft-link soft-link-center" href="#">Full process →</a>
+            <a class="soft-link soft-link-center" href="what-to-expect.html">Full process <span class="link-arrow">→</span></a>
+          </div>
+        </section>
+
+        <section class="sec sec-peel" id="peel-section">
+          <div class="peel-stack" id="peel-stack">
+            <div class="peel-sticky" id="peel-sticky">
+              <div class="peel-panel peel-panel-a">
+                <div class="container narrow">
+                  <div class="eyebrow">What working together looks like</div>
+                  <h2 class="copy-h2">A dedicated defense, with no guessing in between.</h2>
+                </div>
+              </div>
+              <div class="peel-panel peel-panel-b">
+                <div class="container narrow">
+                  <div class="eyebrow">Attorney</div>
+                  <h2 class="copy-h2">Dallin Littlefield</h2>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
         <section class="sec sec-white sec-attorney">
+          <span class="attorney-motif" aria-hidden="true"></span>
           <div class="container">
             <div class="attorney-split">
               <!--
@@ -447,16 +496,30 @@
                   alt="Dallin Littlefield"
                 />
                 <div class="attorney-portrait-duotone"></div>
+                <svg class="attorney-portrait-frame" viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">
+                  <rect class="attorney-portrait-frame-rect" x="2" y="2" width="396" height="496" />
+                </svg>
               </figure>
               <div class="attorney-copy reveal">
-                <div class="eyebrow">Attorney</div>
-                <h2 class="copy-h2">Dallin Littlefield</h2>
-                <p class="attorney-credentials">Former Prosecutor · Former Public Defender · Private Counsel</p>
-                <p class="copy-body">Dallin has worked every side of the criminal courtroom — prosecutor, public defender, now private practice. He knows exactly how the state builds a case, and exactly where to fight it.</p>
+                <div class="reveal reveal--blur">
+                  <div class="eyebrow">Attorney</div>
+                  <h2 class="copy-h2">Dallin Littlefield</h2>
+                </div>
+                <ul class="attorney-roles">
+                  <li>Former Prosecutor</li>
+                  <li>Former Public Defender</li>
+                  <li>Private Counsel</li>
+                </ul>
+                <blockquote class="attorney-pullquote">He knows exactly how the state builds a case, and exactly where to fight it.</blockquote>
+                <p class="copy-body">Dallin has worked every side of the criminal courtroom — prosecutor, public defender, now private practice.</p>
                 <p class="copy-body">He represents clients across Utah County, Northern Utah, and the Wasatch Front — statewide when needed. And he'll always tell you exactly where your case stands.</p>
-                <a class="soft-link" href="#">About Dallin →</a>
+                <a class="soft-link" href="about.html">About Dallin <span class="link-arrow">→</span></a>
                 <div class="inline-cta">
-                  <a class="cta-btn" href="tel:+15555555555">Call (555) 555-5555</a>
+                  <a class="cta-btn cta-btn--ghost" href="tel:+15555555555">
+                    <span class="cta-btn-fill" aria-hidden="true"></span>
+                    <span class="cta-btn-content"><span class="cta-btn-icon"></span>Call (555) 555-5555</span>
+                  </a>
+                </a>
                   <p class="inline-cta-note">No pressure. No obligation. Confidential.</p>
                 </div>
               </div>
@@ -466,7 +529,7 @@
 
         <section class="sec sec-white sec-reviews">
           <div class="container">
-            <div class="sec-head reveal">
+            <div class="sec-head reveal reveal--blur">
               <div class="eyebrow">What clients say</div>
               <h2 class="copy-h2">Real reviews only</h2>
             </div>
@@ -512,9 +575,13 @@
                 <button type="button" class="review-arrow review-arrow--next" aria-label="Next review">›</button>
               </div>
             </div>
-            <a class="soft-link" href="#">All reviews →</a>
+            <a class="soft-link" href="reviews.html">All reviews <span class="link-arrow">→</span></a>
             <div class="inline-cta">
-              <a class="cta-btn" href="tel:+15555555555">Call (555) 555-5555</a>
+              <a class="cta-btn cta-btn--ghost" href="tel:+15555555555">
+                <span class="cta-btn-fill" aria-hidden="true"></span>
+                <span class="cta-btn-content"><span class="cta-btn-icon"></span>Call (555) 555-5555</span>
+              </a>
+                </a>
               <p class="inline-cta-note">No pressure. No obligation. Confidential.</p>
             </div>
           </div>
@@ -522,8 +589,10 @@
 
         <section class="sec sec-final">
           <div class="container narrow final-inner reveal">
-            <div class="eyebrow">Next step</div>
-            <h2 class="copy-h2">A skilled defense. A lawyer who keeps you informed.</h2>
+            <div class="reveal reveal--blur">
+              <div class="eyebrow">Next step</div>
+              <h2 class="copy-h2">A skilled defense. A lawyer who keeps you informed.</h2>
+            </div>
             <p class="copy-lead">Free consultation, phone or video. No cost to find out where you stand. No obligation.</p>
             <a class="final-phone" href="tel:+15555555555">
               <span class="final-phone-ring" aria-hidden="true"></span>
@@ -544,21 +613,21 @@
           <nav class="footer-grid" aria-label="Footer">
             <div class="footer-col">
               <h6>Practice</h6>
-              <a href="#">Practice areas</a>
-              <a href="#">First-time offense</a>
-              <a href="#">DUI</a>
+              <a href="practice-areas/overview.html">Practice areas</a>
+              <a href="practice-areas/first-time-offense.html">First-time offense</a>
+              <a href="practice-areas/dui.html">DUI</a>
             </div>
             <div class="footer-col">
               <h6>Firm</h6>
-              <a href="#">About</a>
-              <a href="#">What to expect</a>
-              <a href="#">Reviews</a>
-              <a href="#">FAQ</a>
+              <a href="about.html">About</a>
+              <a href="what-to-expect.html">What to expect</a>
+              <a href="reviews.html">Reviews</a>
+              <a href="faq.html">FAQ</a>
             </div>
             <div class="footer-col">
               <h6>Contact</h6>
               <a href="tel:+15555555555">(555) 555-5555</a>
-              <a href="#">Contact</a>
+              <a href="contact.html">Contact</a>
             </div>
           </nav>
           <div class="footer-bottom">
@@ -569,14 +638,18 @@
               <span aria-hidden="true">·</span>
               <a href="#">Terms</a>
             </div>
-            <a class="footer-top-link" href="#">Back to top ↑</a>
+            <a class="footer-top-link" href="#">Back to top <span class="link-arrow">↑</span></a>
           </div>
           <p class="footer-compliance">[COMPLIANCE · Attorney advertising · Prior results do not guarantee a similar outcome · Bar review pending]</p>
         </div>
       </footer>
 
       <div class="mobile-cta">
-        <a class="cta-btn" href="tel:+15555555555">Call (555) 555-5555</a>
+        <a class="cta-btn cta-btn--corner" href="tel:+15555555555">
+          <span class="cta-btn-corner-fold" aria-hidden="true"></span>
+          <span class="cta-btn-content"><span class="cta-btn-icon"></span>Call (555) 555-5555</span>
+        </a>
+                </a>
       </div>
 
       <div id="mega-menu" class="mega-menu" hidden aria-hidden="true">
@@ -610,7 +683,7 @@
                 <div id="mega-practice-list" class="mega-menu__practice-grid" hidden>
                   <a
                     class="mega-practice-tile"
-                    href="#"
+                    href="practice-areas/dui.html"
                     data-preview-img="https://images.pexels.com/photos/10957638/pexels-photo-10957638.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
                     data-preview-caption="First-time and subsequent DUI in Utah courts."
                   >
@@ -622,7 +695,7 @@
                   </a>
                   <a
                     class="mega-practice-tile"
-                    href="#"
+                    href="practice-areas/drug-possession.html"
                     data-preview-img="https://images.pexels.com/photos/29488399/pexels-photo-29488399.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
                     data-preview-caption="Possession charges where your record and probation matter."
                   >
@@ -634,7 +707,7 @@
                   </a>
                   <a
                     class="mega-practice-tile"
-                    href="#"
+                    href="practice-areas/marijuana-possession.html"
                     data-preview-img="https://images.pexels.com/photos/34475126/pexels-photo-34475126.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
                     data-preview-caption="Recreational marijuana cases still require a serious defense."
                   >
@@ -646,7 +719,7 @@
                   </a>
                   <a
                     class="mega-practice-tile"
-                    href="#"
+                    href="practice-areas/assault.html"
                     data-preview-img="https://images.pexels.com/photos/14212986/pexels-photo-14212986.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
                     data-preview-caption="Simple assault and related charges, defended thoroughly."
                   >
@@ -658,7 +731,7 @@
                   </a>
                   <a
                     class="mega-practice-tile"
-                    href="#"
+                    href="practice-areas/theft.html"
                     data-preview-img="https://images.pexels.com/photos/27534533/pexels-photo-27534533.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
                     data-preview-caption="Theft and property charges where your reputation is on the line."
                   >
@@ -670,7 +743,7 @@
                   </a>
                   <a
                     class="mega-practice-tile mega-practice-tile--featured"
-                    href="#"
+                    href="practice-areas/first-time-offense.html"
                     data-preview-img="https://images.pexels.com/photos/28539583/pexels-photo-28539583.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
                     data-preview-caption="Light history. One charge that doesn't have to define you."
                   >
@@ -686,7 +759,7 @@
 
               <a
                 class="mega-menu__item mega-menu__link"
-                href="#how-it-works"
+                href="what-to-expect.html"
                 data-preview="method"
                 data-preview-caption="A dedicated defense, with no guessing in between."
               >
@@ -695,7 +768,7 @@
               </a>
               <a
                 class="mega-menu__item mega-menu__link"
-                href="#"
+                href="about.html"
                 data-preview="about"
                 data-preview-img="img/dallin-attorney.jpg"
                 data-preview-caption="Former prosecutor. Former public defender. Private counsel."
@@ -705,7 +778,7 @@
               </a>
               <a
                 class="mega-menu__item mega-menu__link"
-                href="#"
+                href="reviews.html"
                 data-preview="reviews"
                 data-preview-caption="Real reviews only."
               >
@@ -714,7 +787,7 @@
               </a>
               <a
                 class="mega-menu__item mega-menu__link"
-                href="#"
+                href="faq.html"
                 data-preview="faq"
                 data-preview-caption="Straight answers before you ever pick up the phone."
               >
@@ -723,7 +796,7 @@
               </a>
               <a
                 class="mega-menu__item mega-menu__link"
-                href="#"
+                href="contact.html"
                 data-preview="contact"
                 data-preview-caption="Saratoga Springs base. Virtual practice, statewide."
               >
@@ -761,6 +834,7 @@
   </div>
 
   <script src="js/loader.js"></script>
+  <script src="js/page-transition.js"></script>
   <script src="js/viewport.js"></script>
   <script src="js/reveal.js"></script>
   <script src="js/hero-parallax.js"></script>
@@ -768,5 +842,7 @@
   <script src="js/practice-acc.js"></script>
   <script src="js/reviews-marquee.js"></script>
   <script src="js/method-progress.js"></script>
+  <script src="js/diff-stack.js"></script>
+  <script src="js/peel-handoff.js"></script>
 </body>
 </html>
