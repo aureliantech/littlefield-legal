@@ -2490,65 +2490,6 @@ body.vp-desktop .pa-modal-media {
   aspect-ratio: 16 / 9;
 }
 
-/* —— Section Peel Handoff: a dedicated transition zone between the
-   method and attorney sections. Deliberately NOT pinning either of
-   those two fully-built sections directly — method has its own
-   scroll-linked beat-progress system, and attorney has its own complex
-   layout; both stay completely untouched. This is a small, separate
-   moment in between, reusing each section's own real heading. —— */
-.sec-peel {
-  position: relative;
-  padding: 0;
-}
-
-.peel-stack {
-  position: relative;
-  height: calc(100vh + 260px);
-}
-
-.peel-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.peel-panel {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.peel-panel-a {
-  z-index: 2;
-  background:
-    radial-gradient(ellipse 65% 55% at 12% 0%, rgba(166, 90, 58, 0.14), transparent 60%),
-    radial-gradient(ellipse 55% 45% at 100% 100%, rgba(63, 92, 56, 0.3), transparent 62%),
-    linear-gradient(160deg, var(--green-700) 0%, var(--green-900) 60%, #0c120b 100%);
-}
-
-.peel-panel-a .eyebrow,
-.peel-panel-a .copy-h2 {
-  color: var(--paper);
-}
-
-.peel-panel-b {
-  z-index: 1;
-  background: var(--paper);
-  opacity: 0;
-  transform: scale(0.94);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .peel-stack { height: auto; }
-  .peel-sticky { position: static; height: auto; }
-  .peel-panel { position: relative; padding: 64px 0; }
-  .peel-panel-b { display: none; }
-}
-
 .sec-method {
   position: relative;
   background:
