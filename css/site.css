@@ -3685,6 +3685,7 @@ body.is-loading .hero-trust {
   background: var(--rust-500);
   transform: scaleY(0);
   transform-origin: top;
+  margin-right: -1px;
 }
 
 .page-transition__blind:nth-child(1) { animation-delay: 0s; }
@@ -3717,6 +3718,23 @@ body.is-loading .hero-trust {
 .page-transition.is-animating-open .page-transition__blind {
   animation: pt-open 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
+
+/* The animation shorthand above resets animation-delay to 0 for any
+   sub-property it doesn't explicitly set — these overrides need higher
+   specificity than that shorthand rule to actually survive and produce
+   the staggered sweep, not a single flat one. */
+.page-transition.is-animating-close .page-transition__blind:nth-child(1),
+.page-transition.is-animating-open .page-transition__blind:nth-child(1) { animation-delay: 0s; }
+.page-transition.is-animating-close .page-transition__blind:nth-child(2),
+.page-transition.is-animating-open .page-transition__blind:nth-child(2) { animation-delay: 0.035s; }
+.page-transition.is-animating-close .page-transition__blind:nth-child(3),
+.page-transition.is-animating-open .page-transition__blind:nth-child(3) { animation-delay: 0.07s; }
+.page-transition.is-animating-close .page-transition__blind:nth-child(4),
+.page-transition.is-animating-open .page-transition__blind:nth-child(4) { animation-delay: 0.105s; }
+.page-transition.is-animating-close .page-transition__blind:nth-child(5),
+.page-transition.is-animating-open .page-transition__blind:nth-child(5) { animation-delay: 0.14s; }
+.page-transition.is-animating-close .page-transition__blind:nth-child(6),
+.page-transition.is-animating-open .page-transition__blind:nth-child(6) { animation-delay: 0.175s; }
 
 @keyframes pt-close {
   to { transform: scaleY(1); }

@@ -14,8 +14,11 @@
 
   if (reduced) return; /* CSS already hides/disables the overlay; skip all JS behavior */
 
-  var CLOSE_MS = 620;
-  var OPEN_MS = 650;
+  /* Last blind's delay (0.175s) + its own animation duration must both
+     finish before we navigate or clean up — otherwise the sweep gets cut
+     short right at the moment of the page swap. */
+  var CLOSE_MS = 740;  /* 0.175s max delay + 0.55s close duration + small buffer */
+  var OPEN_MS = 790;   /* 0.175s max delay + 0.6s open duration + small buffer */
 
   /* —— Entrance: open if we arrived already closed —— */
   function playOpen() {
