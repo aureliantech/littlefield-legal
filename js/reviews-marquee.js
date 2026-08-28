@@ -10,7 +10,7 @@
   var nextBtn = document.querySelector(".review-arrow--next");
   if (!slides.length) return;
 
-  var AUTOPLAY_MS = 6000;
+  var AUTOPLAY_MS = 5000;
   var current = 0;
   var inView = true;
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

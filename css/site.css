@@ -2639,7 +2639,7 @@ body.vp-desktop .method-beat {
 }
 
 body.vp-mobile .sec-attorney {
-  padding: 48px 0 56px;
+  padding: 48px 16px 56px;
 }
 
 /* —— Guilloché, take four: the dense engraved pattern (proven to read
@@ -2953,6 +2953,18 @@ body.vp-mobile .split {
   margin: 0 0 22px;
 }
 
+.review-stars {
+  display: flex;
+  gap: 3px;
+  margin: 0 0 12px;
+}
+
+.review-stars svg {
+  width: 18px;
+  height: 18px;
+  fill: #fbbc04;
+}
+
 .review-name {
   font-family: var(--font-body);
   font-style: normal;
@@ -3015,8 +3027,8 @@ body.vp-mobile .split {
   }
 }
 
-.sec-reviews:hover .review-progress-seg.is-active .review-progress-fill,
-.sec-reviews:focus-within .review-progress-seg.is-active .review-progress-fill {
+.review-feature:hover .review-progress-seg.is-active .review-progress-fill,
+.review-feature:focus-within .review-progress-seg.is-active .review-progress-fill {
   animation-play-state: paused;
 }
 
