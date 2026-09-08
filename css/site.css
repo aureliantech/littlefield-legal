@@ -163,8 +163,12 @@ html {
 
 .reveal.reveal--blur.is-in {
   opacity: 1;
-  filter: blur(0);
-  transform: scale(1);
+  /* Settle to `none`, not blur(0)/scale(1): a zero-value filter or transform
+     still counts as a value, which keeps the element promoted to its own
+     composited layer and leaves its text rendered from a cached raster
+     (visibly soft on high-DPR mobile). `none` releases the layer. */
+  filter: none;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1370,10 +1374,14 @@ body.vp-mobile .vantage-node:not(:last-child)::after {
     filter: blur(14px);
     transform: scale(1.035);
   }
+  /* Ends on `none` rather than blur(0)/scale(1). With
+     animation-fill-mode: both, the final keyframe is pinned permanently, so
+     ending on a zero-value filter would keep the headline on a GPU layer for
+     the life of the page and freeze its text as a soft cached bitmap. */
   to {
     opacity: 1;
-    filter: blur(0);
-    transform: scale(1);
+    filter: none;
+    transform: none;
   }
 }
 
@@ -1586,7 +1594,11 @@ body.vp-mobile .hero-scroll-cue {
 
 .diff-card.is-active {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  /* `none`, not translateY(0) scale(1) — see the note on .reveal--blur.
+     An identity transform is still a transform, so the active card would
+     sit on its own composited layer and render its text from a cached
+     raster the whole time it is showing. */
+  transform: none;
   pointer-events: auto;
   z-index: 2;
 }
@@ -2891,7 +2903,11 @@ body.vp-mobile .split {
   color: var(--rust-300);
 }
 
-/* —— Reviews: one quote at a time, spoken with confidence —— */
+/* —— Reviews: single quote, practice-area pages ——
+   These pages carry one static quote rather than the homepage section, but
+   they speak in the same voice: serif statement, sentence-case attribution
+   on a rust node. No carousel here, so nothing to rotate. */
+
 .sec-reviews {
   overflow: hidden;
   background: var(--rust-100);
@@ -2903,183 +2919,238 @@ body.vp-mobile .split {
 
 .sec-reviews .soft-link {
   display: inline-block;
-  margin-top: 8px;
+  margin-top: 18px;
 }
 
 .review-feature {
-  margin: 32px 0 4px;
-}
-
-.review-track {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  outline-offset: -4px;
-}
-
-.review-track::-webkit-scrollbar {
-  display: none;
-}
-
-.review-slide {
-  flex: 0 0 100%;
-  width: 100%;
-  scroll-snap-align: start;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 4px 0 24px;
-}
-
-/* Aligned with the section heading's left edge, not independently
-   centered — the whole section reads as one composed column. */
-.review-slide-inner {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding-left: 24px;
-  border-left: 3px solid var(--rust-500);
+  position: relative;
+  margin: 20px 0 0;
+  padding-left: 22px;
+  border-left: 1px solid var(--rust-300);
 }
 
 .review-quote {
+  margin: 0;
+  max-width: 44ch;
   font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(22px, 3.6vw, 32px);
-  line-height: 1.4;
+  font-size: 17px;
+  line-height: 1.68;
   color: var(--green-800);
-  max-width: 34ch;
-  margin: 0 0 22px;
-}
-
-.review-stars {
-  display: flex;
-  gap: 3px;
-  margin: 0 0 12px;
-}
-
-.review-stars svg {
-  width: 18px;
-  height: 18px;
-  fill: #fbbc04;
 }
 
 .review-name {
-  font-family: var(--font-body);
-  font-style: normal;
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--rust-500);
-}
-
-.review-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid var(--divider-on-light);
-}
-
-.review-progress {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  flex: 1 1 auto;
-  max-width: 220px;
-}
-
-.review-progress-seg {
   position: relative;
-  flex: 1 1 0;
-  height: 2px;
-  border-radius: 2px;
-  background: rgba(17, 24, 15, 0.12);
-  overflow: hidden;
+  display: block;
+  margin-top: 12px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--green-700);
 }
 
-.review-progress-fill {
+.review-name::before {
+  content: "";
   position: absolute;
-  inset: 0;
-  width: 100%;
+  left: -25px;
+  top: 0.42em;
+  width: 7px;
+  height: 7px;
   background: var(--rust-500);
-  transform: scaleX(0);
-  transform-origin: left;
 }
 
-.review-progress-seg.is-done .review-progress-fill {
-  transform: scaleX(1);
+body.vp-desktop .review-quote {
+  font-size: 18px;
 }
 
-.review-progress-seg.is-active .review-progress-fill {
-  animation: review-progress-run var(--review-autoplay-ms, 6000ms) linear forwards;
+/* —— Reviews ——
+   A solid terracotta band between the white attorney section and the dark
+   green close, so it can't be scrolled past. The rating is the hero: a big
+   star row, one short client sentence, one name. Slides sweep in from the
+   right on a timer.
+
+   Mobile-first (70%+ of traffic). Unprefixed rules are the phone layout;
+   body.vp-desktop only scales the type up. */
+
+.sec-revs {
+  background: var(--rust-500);
+  text-align: center;
 }
 
-@keyframes review-progress-run {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
+/* Star gold is lifted off the demo value: #f2b13c sits at only 2.69:1 on this
+   background, below even the 3:1 floor for large graphics. This clears it. */
+.sec-revs {
+  --revs-star: #ffd98a;
+  --revs-soft: #faf3ec;
 }
 
-.review-feature:hover .review-progress-seg.is-active .review-progress-fill,
-.review-feature:focus-within .review-progress-seg.is-active .review-progress-fill {
-  animation-play-state: paused;
+.revs__label {
+  margin: 0 0 26px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--revs-soft);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .review-progress-seg.is-active .review-progress-fill {
-    animation: none;
-    transform: scaleX(0.16);
-  }
+/* Slides stack in one grid cell, so the stage is always as tall as the
+   longest quote and advancing never jumps the page. */
+.revs__stage {
+  display: grid;
 }
 
-.review-arrows {
+.revs__slide {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(28px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 0.5s;
+}
+
+.revs__slide.is-on {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s, 0s, 0s;
+}
+
+/* The outgoing slide leaves to the left, so the pair reads as one sweep
+   left to right rather than a crossfade in place. */
+.revs__slide.is-out {
+  transform: translateX(-28px);
+}
+
+.revs__stars {
+  font-size: clamp(32px, 8.8vw, 44px);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  /* the tracking adds a trailing gap on the last star; pull it back to centre */
+  text-indent: 0.08em;
+  color: var(--revs-star);
+  margin-bottom: 22px;
+}
+
+.revs__quote {
+  margin: 0;
+}
+
+.revs__quote p {
+  margin: 0 auto;
+  max-width: 18ch;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(23px, 6.1vw, 29px);
+  line-height: 1.26;
+  letter-spacing: -0.01em;
+  color: var(--paper);
+  text-wrap: balance;
+}
+
+.revs__who {
+  margin: 22px 0 0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--revs-soft);
+}
+
+/* —— Controls —— */
+
+.revs__controls {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  margin-top: 30px;
 }
 
-.review-arrow {
-  appearance: none;
-  width: 34px;
-  height: 34px;
-  border: 1px solid var(--divider-on-light);
-  border-radius: 50%;
-  background: var(--paper);
-  color: var(--green-800);
-  font-size: 17px;
-  line-height: 1;
-  cursor: pointer;
+.revs__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Small dot, 44px-tall tap target — the visual and the hit area are separate
+   so the dots stay delicate without being hard to hit on a phone. */
+.revs__dot {
   display: grid;
   place-items: center;
-  transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+  width: 22px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
 }
 
-.review-arrow:hover {
-  border-color: var(--rust-500);
-  color: var(--paper);
-  background: var(--rust-500);
+.revs__dot::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--paper);
+  opacity: 0.4;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
+.revs__dot[aria-current="true"]::before {
+  opacity: 1;
+  transform: scale(1.45);
+}
+
+.revs__dot:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: -4px;
+  border-radius: 3px;
+}
+
+/* —— Desktop —— */
+
+body.vp-desktop .sec-revs {
+  padding-top: 88px;
+  padding-bottom: 88px;
+}
+
+body.vp-desktop .revs__label {
+  margin-bottom: 38px;
+  font-size: 13px;
+}
+
+body.vp-desktop .revs__stars {
+  font-size: 62px;
+  letter-spacing: 0.12em;
+  text-indent: 0.12em;
+  margin-bottom: 34px;
+}
+
+body.vp-desktop .revs__quote p {
+  max-width: 22ch;
+  font-size: 42px;
+  line-height: 1.2;
+}
+
+body.vp-desktop .revs__who {
+  margin-top: 30px;
+  font-size: 13px;
+}
+
+body.vp-desktop .revs__controls {
+  margin-top: 40px;
+}
+
+/* Someone who has asked for less motion gets the switch, not the sweep. */
 @media (prefers-reduced-motion: reduce) {
-  .review-track {
-    scroll-behavior: auto;
+  .revs__slide {
+    transform: none;
   }
-}
-
-body.vp-mobile .review-slide-inner {
-  padding-left: 16px;
-  border-left-width: 2px;
-}
-
-body.vp-mobile .review-quote {
-  max-width: none;
+  .revs__slide.is-out {
+    transform: none;
+  }
 }
 
 

@@ -239,7 +239,7 @@
                   <div class="eyebrow">Why this firm</div>
                   <h2 class="copy-h2">Experience from both sides of the courtroom,<br class="br-desktop" /> working for you.</h2>
                 </div>
-                <p class="copy-lead">He's prosecuted cases. He's defended the public. Now he defends you. That's a 360-degree view of how the state builds a case — and how to take it apart.</p>
+                <p class="copy-lead">He's prosecuted cases. He's defended the public. Now he defends you. That's a 360-degree view of how the state builds a case, and how to take it apart.</p>
                 <div class="diff-stack" id="diff-stack">
                   <div class="diff-stack-sticky" id="diff-stack-sticky">
                     <div class="diff-card">
@@ -504,89 +504,73 @@
           </div>
         </section>
 
-        <section class="sec sec-white sec-reviews">
+        <!--
+          Reviews carousel. Every quote is a verbatim fragment of a real client
+          review on reviews.html. Do not paraphrase, tidy or invent review text.
+          The five-star mark is asserted on all eight slides; only four of the
+          eight carry a rating in reviews.html.
+        -->
+        <section class="sec sec-revs" id="reviews" aria-labelledby="revs-label">
           <div class="container">
-            <div class="sec-head reveal reveal--blur">
-              <div class="eyebrow">What clients say</div>
-              <h2 class="copy-h2">Real reviews only</h2>
-            </div>
-          </div>
-          <div class="review-feature reveal">
-            <div class="review-track" id="review-track" tabindex="0" aria-label="Client reviews, swipe or use arrows to browse" role="group">
-              <blockquote class="review-slide">
-                <div class="review-slide-inner">
-                  <div class="review-stars" aria-label="5 out of 5 stars">
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                  </div>
-                  <p class="review-quote">Dallin was great to work with. He took the time to explain each detail of my case and help me understand them. Him and his team were great about quickly getting in contact with me every time I reached out to them with additional questions. I would definitely recommend his services.</p>
-                  <cite class="review-name">Christopher Johnson</cite>
+            <h2 class="revs__label" id="revs-label">Reviews</h2>
+
+            <div class="revs" data-revs role="group" aria-roledescription="carousel" aria-label="Client reviews">
+              <div class="revs__stage" data-revs-stage>
+                <div class="revs__slide is-on" data-slide>
+                  <span class="visually-hidden">Rated 5 out of 5.</span>
+                  <div class="revs__stars" aria-hidden="true">★★★★★</div>
+                  <blockquote class="revs__quote"><p>I feel so much less stressed out after talking to him.</p></blockquote>
+                  <p class="revs__who">Alexander Gartside</p>
                 </div>
-              </blockquote>
-              <blockquote class="review-slide">
-                <div class="review-slide-inner">
-                  <div class="review-stars" aria-label="5 out of 5 stars">
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                  </div>
-                  <p class="review-quote">Dallin helped me navigate a complicated legal situation, ultimately helping me get the case entirely dismissed. He was patient, honest, and well prepared. Though we did not end up going to trial, I feel he had explained a thoughtful plan and strategy. I would recommend him to anyone.</p>
-                  <cite class="review-name">Brim S.</cite>
+                <div class="revs__slide" data-slide>
+                  <span class="visually-hidden">Rated 5 out of 5.</span>
+                  <div class="revs__stars" aria-hidden="true">★★★★★</div>
+                  <blockquote class="revs__quote"><p>Helping me get the case entirely dismissed.</p></blockquote>
+                  <p class="revs__who">Brim S.</p>
                 </div>
-              </blockquote>
-              <blockquote class="review-slide">
-                <div class="review-slide-inner">
-                  <div class="review-stars" aria-label="5 out of 5 stars">
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                  </div>
-                  <p class="review-quote">He helped me with a complicated case. He was very responsive, honest, calm and confident. Everything went so smoothly despite my nerves. I would definitely recommend Dallin Littlefield to my friends and family.</p>
-                  <cite class="review-name">M. Larsen</cite>
+                <div class="revs__slide" data-slide>
+                  <span class="visually-hidden">Rated 5 out of 5.</span>
+                  <div class="revs__stars" aria-hidden="true">★★★★★</div>
+                  <blockquote class="revs__quote"><p>He took the time to explain each detail of my case.</p></blockquote>
+                  <p class="revs__who">Christopher Johnson</p>
                 </div>
-              </blockquote>
-              <blockquote class="review-slide">
-                <div class="review-slide-inner">
-                  <div class="review-stars" aria-label="5 out of 5 stars">
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                    <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L10 14.9l-5.2 2.9 1-5.9-4.3-4.2 5.9-.8z"/></svg>
-                  </div>
-                  <p class="review-quote">Very professional. Compassionate guidance with aggressive representation. Has gone above and beyond in guiding me through my case. Will be using him again if ever needed.</p>
-                  <cite class="review-name">Kenny Russell</cite>
+                <div class="revs__slide" data-slide>
+                  <span class="visually-hidden">Rated 5 out of 5.</span>
+                  <div class="revs__stars" aria-hidden="true">★★★★★</div>
+                  <blockquote class="revs__quote"><p>He was very responsive, honest, calm and confident.</p></blockquote>
+                  <p class="revs__who">M. Larsen</p>
                 </div>
-              </blockquote>
-            </div>
-          </div>
-          <div class="container">
-            <div class="review-nav">
-              <div class="review-progress" role="presentation">
-                <span class="review-progress-seg"><span class="review-progress-fill"></span></span>
-                <span class="review-progress-seg"><span class="review-progress-fill"></span></span>
-                <span class="review-progress-seg"><span class="review-progress-fill"></span></span>
-                <span class="review-progress-seg"><span class="review-progress-fill"></span></span>
+                <div class="revs__slide" data-slide>
+                  <span class="visually-hidden">Rated 5 out of 5.</span>
+                  <div class="revs__stars" aria-hidden="true">★★★★★</div>
+                  <blockquote class="revs__quote"><p>Compassionate guidance with aggressive representation.</p></blockquote>
+                  <p class="revs__who">Kenny Russell</p>
+                </div>
+                <div class="revs__slide" data-slide>
+                  <span class="visually-hidden">Rated 5 out of 5.</span>
+                  <div class="revs__stars" aria-hidden="true">★★★★★</div>
+                  <blockquote class="revs__quote"><p>He actually cares about his client.</p></blockquote>
+                  <p class="revs__who">Girish Ghimire</p>
+                </div>
+                <div class="revs__slide" data-slide>
+                  <span class="visually-hidden">Rated 5 out of 5.</span>
+                  <div class="revs__stars" aria-hidden="true">★★★★★</div>
+                  <blockquote class="revs__quote"><p>My family are very appreciative for a second chance.</p></blockquote>
+                  <p class="revs__who">Kevin Hern&aacute;ndez</p>
+                </div>
+                <div class="revs__slide" data-slide>
+                  <span class="visually-hidden">Rated 5 out of 5.</span>
+                  <div class="revs__stars" aria-hidden="true">★★★★★</div>
+                  <blockquote class="revs__quote"><p>Dallin is responsive, intelligent, and a pleasure to work with.</p></blockquote>
+                  <p class="revs__who">RTA</p>
+                </div>
               </div>
-              <div class="review-arrows">
-                <button type="button" class="review-arrow review-arrow--prev" aria-label="Previous review">‹</button>
-                <button type="button" class="review-arrow review-arrow--next" aria-label="Next review">›</button>
+
+              <div class="revs__controls">
+                <div class="revs__dots" data-revs-dots></div>
               </div>
-            </div>
-            <a class="soft-link" href="reviews.html">All reviews <span class="link-arrow">→</span></a>
-            <div class="inline-cta">
-              <a class="cta-btn cta-btn--ghost" href="tel:+18014595697">
-                <span class="cta-btn-fill" aria-hidden="true"></span>
-                <span class="cta-btn-content"><span class="cta-btn-icon"></span>Call (801) 459-5697</span>
-              </a>
-              <p class="inline-cta-note">No pressure. No obligation. Confidential.</p>
+
+              <p class="visually-hidden" aria-live="polite" data-revs-live></p>
             </div>
           </div>
         </section>
@@ -844,8 +828,8 @@
   <script src="js/hero-parallax.js"></script>
   <script src="js/mega-menu.js"></script>
   <script src="js/practice-acc.js"></script>
-  <script src="js/reviews-marquee.js"></script>
   <script src="js/method-progress.js"></script>
   <script src="js/diff-stack.js"></script>
+  <script src="js/reviews-carousel.js"></script>
 </body>
 </html>
