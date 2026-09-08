@@ -1353,37 +1353,14 @@ body.vp-mobile .vantage-node:not(:last-child)::after {
 }
 
 .vantage-path,
-.sec-hero .copy-lead,
 .hero-reassurance,
 .hero-trust {
   animation: hero-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* The headline (eyebrow + H1) gets the blur-to-focus treatment instead of
-   the shared rise — this is the one true "headline arriving" moment on the
-   page, so it earns the more cinematic entrance. Supporting hero elements
-   above keep the quieter rise. */
-.hero-kicker,
-.hero-h1 {
-  animation: hero-blur-focus 0.9s ease-out both;
-}
-
-@keyframes hero-blur-focus {
-  from {
-    opacity: 0;
-    filter: blur(14px);
-    transform: scale(1.035);
-  }
-  /* Ends on `none` rather than blur(0)/scale(1). With
-     animation-fill-mode: both, the final keyframe is pinned permanently, so
-     ending on a zero-value filter would keep the headline on a GPU layer for
-     the life of the page and freeze its text as a soft cached bitmap. */
-  to {
-    opacity: 1;
-    filter: none;
-    transform: none;
-  }
-}
+/* The hero text — eyebrow, headline and lead — is deliberately not animated:
+   it is present the moment the page paints. Supporting hero elements below
+   still get the quiet rise. */
 
 /* The CTA button gets its own opacity-only entrance — reusing hero-rise's
    translateY would pin "transform: none" on the button via fill-mode even
@@ -1402,19 +1379,13 @@ body.vp-mobile .vantage-node:not(:last-child)::after {
   }
 }
 
-.hero-kicker { animation-delay: 0.05s; }
 .vantage-path { animation-delay: 0.16s; }
-.hero-h1 { animation-delay: 0.27s; }
-.sec-hero .copy-lead { animation-delay: 0.42s; }
 .sec-hero .cta-btn { animation-delay: 0.56s; }
 .hero-reassurance { animation-delay: 0.62s; }
 .hero-trust { animation-delay: 0.68s; }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-kicker,
   .vantage-path,
-  .hero-h1,
-  .sec-hero .copy-lead,
   .sec-hero .cta-btn,
   .hero-reassurance,
   .hero-trust {
@@ -3654,10 +3625,7 @@ body.vp-mobile .site-loader__node:not(:last-child)::after {
 /* Hero content stays paused behind the loader and only begins its own
    entrance sequence once the loader has actually lifted — one continuous
    reveal instead of two disconnected animations. */
-body.is-loading .hero-kicker,
 body.is-loading .vantage-path,
-body.is-loading .hero-h1,
-body.is-loading .sec-hero .copy-lead,
 body.is-loading .sec-hero .cta-btn,
 body.is-loading .hero-reassurance,
 body.is-loading .hero-trust {
